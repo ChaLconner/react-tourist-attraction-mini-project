@@ -8,8 +8,7 @@ function TravelPage() {
 
     const getData = async () => {
         try {
-            const response = await axios.get(`http://localhost:4001/trips?keywords=${query}`);
-            console.log(response.data.data);
+            const response = await axios.get(`http://localhost:4001/trips?keywords=${query}`);            
             setPlaces(response.data.data); // เก็บข้อมูลใน state
         } catch (error) {
             console.error("Error fetching places:", error);
@@ -22,40 +21,44 @@ function TravelPage() {
 
     return (
         <div className="w-full py-20">
-            <h1 className="text-blue-500 text-3xl font-bold text-center">เที่ยวไหนดี</h1>
-            <div className="flex justify-center items-center my-6">
-                <h4>ค้นหาที่เที่ยว</h4>
+            <h1 className="text-cyan-600 text-6xl font-bold text-center">เที่ยวไหนดี</h1>
+            <div className="flex flex-col items-center my-6">
+                <h4 className="text-left w-4/5">ค้นหาที่เที่ยว</h4>
                 <input
                     type="text"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder="หาที่เที่ยวแล้วไปกัน ..."
-                    className="border p-2 w-4/5 text-center"
+                    className="border-b-1 border-gray-300 p-2 w-4/5 text-center"
                 />
             </div>
-            <div className="p-8">
+            <div className="flex flex-col items-center p-8">
                 {place.map((place, eId) => (
-                    <div key={eId} className="flex md:flex-row p-4 mb-4 border rounded-lg">
+                    <div key={eId} className="flex flex-row p-4 mb-6 items-center">
                         <img
-                            className="h-24 w-24 object-cover mb-4 md:mb-0 md:mr-4"
+                            className="rounded-4xl h-80 w-108 object-cover mr-8"
                             src={place.photos[0]}
                             alt={place.title}
                         />
                         <div>
                             <h2 className="text-xl font-bold mb-2">{place.title}</h2>
-                            <p className="mb-2">{place.description}</p>
-                            <a href={place.url} className="text-blue-500 underline">
+                            <p className="mb-2">
+                                {place.description.length > 100
+                                    ? `${place.description.slice(0, 100)} ...`
+                                    : place.description}
+                            </p>
+                            <a href={place.url} className="text-sky-500 underline">
                                 อ่านต่อ
                             </a>
                             <div className="mt-2">
-                                <p className="inline font-semibold">หมวด: </p>
-                                <span>{place.tags.join(", ")}</span>
+                                <p className="inline font-semibold ">หมวด </p>
+                                <span className="underline">{place.tags.join(" ")} และ {place.tags[place.tags.length - 1]}</span>
                             </div>
-                            <div className="flex mt-4 space-x-2">
+                            <div className="flex mt-4 space-x-8">
                                 {place.photos.slice(1).map((photo, idx) => (
                                     <img
                                         key={idx}
-                                        className="h-20 w-20 object-cover"
+                                        className="rounded-xl h-36 w-36 object-cover"
                                         src={photo}
                                         alt={`Additional ${idx + 1}`}
                                     />
