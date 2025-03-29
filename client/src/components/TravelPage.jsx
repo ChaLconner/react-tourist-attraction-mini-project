@@ -47,7 +47,12 @@ function TravelPage() {
                                     ? `${place.description.slice(0, 100)} ...`
                                     : place.description}
                             </p>
-                            <a href={place.url} className="text-sky-500 underline">
+                            <a
+                                href={place.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-sky-500 underline"
+                            >
                                 อ่านต่อ
                             </a>
                             <div className="mt-2">
