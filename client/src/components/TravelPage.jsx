@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import App from "../App";
 import axios from "axios";
 
 function TravelPage() {
@@ -22,7 +23,7 @@ function TravelPage() {
 
 
 
-    
+
     return (
         <div className="container mx-auto p-4">
             <h1 className="text-2xl font-bold text-center mb-4">เที่ยวไหนดี</h1>
@@ -37,11 +38,12 @@ function TravelPage() {
                 {place.map((place, eid) => (
                     <div key={eid} className="border p-4 mb-4">
                         <h2 className="text-xl font-bold">{place.title}</h2>
-                        <a href={URLSearchParams}>อ่านต่อ</a>
-                        
                         <p>{place.description}</p>
+                        <a href={URLSearchParams}>อ่านต่อ</a>
+
+                        <p >หมวด</p><span>{place.tags}</span>
                         <img src={place.photos[0]}></img>
-                        <a href="">หมวด</a>
+                        
                     </div>
                 ))}
             </div>
