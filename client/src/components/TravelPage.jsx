@@ -41,7 +41,14 @@ function TravelPage() {
                             alt={place.title}
                         />
                         <div>
-                            <h2 className="text-xl font-bold mb-2">{place.title}</h2>
+                            <a
+                                href={place.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-xl font-bold mb-6 text-black-600"
+                            >
+                                {place.title}
+                            </a>
                             <p className="mb-2">
                                 {place.description.length > 100
                                     ? `${place.description.slice(0, 100)} ...`
@@ -56,7 +63,7 @@ function TravelPage() {
                                 อ่านต่อ
                             </a>
                             <div className="mt-2">
-                                <p className="inline font-semibold ">หมวด </p>
+                                <p className="inline">หมวด </p>
                                 <span className="underline">{place.tags.join(" ")} และ {place.tags[place.tags.length - 1]}</span>
                             </div>
                             <div className="flex mt-4 space-x-8">
