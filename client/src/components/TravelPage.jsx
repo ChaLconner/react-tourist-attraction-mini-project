@@ -8,7 +8,7 @@ function TravelPage() {
 
     const getData = async () => {
         try {
-            const response = await axios.get(`http://localhost:4001/trips?keywords=${query}`);            
+            const response = await axios.get(`http://localhost:4001/trips?keywords=${query}`);
             setPlaces(response.data.data); // เก็บข้อมูลใน state
         } catch (error) {
             console.error("Error fetching places:", error);
@@ -34,7 +34,7 @@ function TravelPage() {
             </div>
             <div className="flex flex-col items-center p-8">
                 {place.map((place, eId) => (
-                    <div key={eId} className="flex flex-row p-4 mb-6 items-center">
+                    <div key={eId} className="flex flex-row p-4 mb-6 items-center relative">
                         <img
                             className="rounded-2xl h-80 w-108 object-cover mr-8"
                             src={place.photos[0]}
@@ -95,6 +95,33 @@ function TravelPage() {
                                     />
                                 ))}
                             </div>
+                        </div>
+                        <div className="absolute bottom-8 right-0">
+                            <button
+                                className="rounded flex items-center"
+                                onClick={() => {
+                                    navigator.clipboard.writeText(place.url);
+                                    const tooltip = document.getElementById(`tooltip-${eId}`);
+                                    if (tooltip) {
+                                        tooltip.style.opacity = 1;
+                                        setTimeout(() => {
+                                            tooltip.style.opacity = 0;
+                                        }, 1000);
+                                    }
+                                }}
+                            >
+                                <img
+                                    src="https://cdn3.iconfinder.com/data/icons/user-interface-850/64/15_Hyperlink-512.png"
+                                    alt="Copy Link Icon"
+                                    className="h-14 w-14 "
+                                />
+                            </button>
+                            <span
+                                id={`tooltip-${eId}`}
+                                className="absolute bottom-full mb-1 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 transition-opacity duration-300"
+                            >
+                                Copied!
+                            </span>
                         </div>
                     </div>
                 ))}
