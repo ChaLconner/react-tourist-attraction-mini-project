@@ -36,7 +36,7 @@ function TravelPage() {
                 {place.map((place, eId) => (
                     <div key={eId} className="flex flex-row p-4 mb-6 items-center">
                         <img
-                            className="rounded-4xl h-80 w-108 object-cover mr-8"
+                            className="rounded-2xl h-80 w-108 object-cover mr-8"
                             src={place.photos[0]}
                             alt={place.title}
                         />
@@ -45,7 +45,7 @@ function TravelPage() {
                                 href={place.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-xl font-bold mb-6 text-black-600"
+                                className="text-2xl font-semibold mb-6 text-black-500"
                             >
                                 {place.title}
                             </a>
@@ -64,7 +64,26 @@ function TravelPage() {
                             </a>
                             <div className="mt-2">
                                 <p className="inline">หมวด </p>
-                                <span className="underline">{place.tags.join(" ")} และ {place.tags[place.tags.length - 1]}</span>
+                                {place.tags.map((tag, idx) => (
+                                    <span key={idx}>
+                                        {tag.split(" ").map((word, wordIdx) => (
+                                            <span
+                                                key={wordIdx}
+                                                className="underline cursor-pointer"
+                                                onClick={() =>
+                                                    setQuery((prev) =>
+                                                        prev ? `${prev} ${word}` : word
+                                                    )
+                                                }
+                                            >
+                                                {word}
+                                                {wordIdx < tag.split(" ").length - 1 && " "}
+                                            </span>
+                                        ))}
+                                        {idx < place.tags.length - 2 && " "}
+                                        {idx === place.tags.length - 2 && " และ "}
+                                    </span>
+                                ))}
                             </div>
                             <div className="flex mt-4 space-x-8">
                                 {place.photos.slice(1).map((photo, idx) => (
